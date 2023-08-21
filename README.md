@@ -1,0 +1,1 @@
+# cpp-plugin-template
