@@ -4,19 +4,23 @@
 
 #include "sample_plugin.h"
 
-const PluginDescription &SamplePlugin::getDescription() const {
+const PluginDescription &SamplePlugin::getDescription() const
+{
     return description_;
 }
 
-void SamplePlugin::onLoad() {
+void SamplePlugin::onLoad()
+{
     getLogger()->info("onLoad is called");
 }
 
-void SamplePlugin::onEnable() {
+void SamplePlugin::onEnable()
+{
     getLogger()->info("onEnable is called");
 }
 
-void SamplePlugin::onDisable() {
+void SamplePlugin::onDisable()
+{
     getLogger()->info("onDisable is called");
 }
 

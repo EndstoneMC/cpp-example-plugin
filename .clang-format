@@ -1,19 +1,12 @@
----
-BasedOnStyle: LLVM
+BasedOnStyle: Microsoft
 AccessModifierOffset: -4
+AlignConsecutiveMacros: Consecutive
+AlignEscapedNewlines: Left
+AlignOperands: AlignAfterOperator
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortLambdasOnASingleLine: Empty
 AlwaysBreakTemplateDeclarations: Yes
-BinPackArguments: false
-BinPackParameters: false
-BreakBeforeBinaryOperators: All
-BreakConstructorInitializers: BeforeColon
-ColumnLimit: 80
+BreakBeforeBraces: Stroustrup
 IncludeBlocks: Regroup
-IndentCaseLabels: true
-IndentPPDirectives: AfterHash
-IndentWidth: 4
-Language: Cpp
-SpaceAfterCStyleCast: true
-Standard: "c++17"
-TabWidth: 4
+InsertBraces: true
+InsertNewlineAtEOF: true
