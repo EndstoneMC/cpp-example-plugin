@@ -4,6 +4,7 @@ project(endstone_cpp_plugin CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 add_compile_definitions(_ITERATOR_DEBUG_LEVEL=0)
 
