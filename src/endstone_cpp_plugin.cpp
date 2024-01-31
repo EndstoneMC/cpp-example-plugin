@@ -13,3 +13,18 @@
 // limitations under the License.
 
 #include "endstone_cpp_plugin.h"
+
+void EndstoneCppPlugin::onLoad()
+{
+    getLogger().info("onLoad is called");
+}
+
+void EndstoneCppPlugin::onEnable()
+{
+    getLogger().info("onEnable is called");
+}
+
+void EndstoneCppPlugin::onDisable()
+{
+    getLogger().info("onDisable is called");
+}

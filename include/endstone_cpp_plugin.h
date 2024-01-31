@@ -23,20 +23,11 @@ public:
         return description_;
     }
 
-    void onLoad() override
-    {
-        getLogger().info("onLoad is called");
-    }
+    void onLoad() override;
 
-    void onEnable() override
-    {
-        getLogger().info("onEnable is called");
-    }
+    void onEnable() override;
 
-    void onDisable() override
-    {
-        getLogger().info("onDisable is called");
-    }
+    void onDisable() override;
 
 private:
     PluginDescription description_{"EndstoneCppPlugin", "0.1.0"};
