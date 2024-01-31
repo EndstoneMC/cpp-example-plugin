@@ -15,14 +15,6 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python }}
-          cache: 'pip'
 
       - name: Set up MSVC
         uses: ilammy/msvc-dev-cmd@v1
@@ -53,14 +45,6 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python }}
-          cache: 'pip'
 
       - name: Set up Clang 15
         env:
@@ -82,6 +66,8 @@ jobs:
 
       - name: Build with CMake
         run: |
+          export CC=/usr/bin/clang
+          export CXX=/usr/bin/clang++
           mkdir build
           cd build
           cmake -G Ninja -DCMAKE_BUILD_TYPE=Release ..
