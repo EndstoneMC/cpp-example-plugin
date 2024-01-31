@@ -52,24 +52,19 @@ cpp-plugin-template/
    ```bash
    mkdir build
    cd build
-   cmake .. -DCMAKE_BUILD_TYPE=Releasecd
+   cmake -DCMAKE_BUILD_TYPE=Release ..
+   cmake --build .
    ```
 
-   This process will compile your code and produce a shared library (or other relevant binary) that Endstone can load.
+   This process will compile your code and produce a shared library that Endstone can load.
 
    **Note: If you wish to build against a specific version of Endstone, you can modify the `GIT_TAG` in
    the `CMakeLists.txt` file to point to the desired tag or commit.**
 
 5. **Testing Your Plugin**
 
-   Once built, copy your plugin's output binary to the `plugins` directory of your Endstone server setup. Then, start
-   the server with:
-
-   ```bash
-   endstone
-   ```
-
-   Check the server logs or console to ensure your plugin loads and operates as expected.
+   Once built, install your plugin's output binary to the `plugins` directory of your Endstone server. Start the
+   Endstone server and check the logs to ensure your plugin loads and operates as expected.
 
 ## Documentation
 
