@@ -5,16 +5,23 @@ aiming to craft C++ plugins for the Bedrock Dedicated Servers using Endstone.
 
 ## Prerequisites
 
-- A compiler that supports C++20.
+### Windows
+
+- Visual Studio 2017 or newer
+
+### Linux
+
+- Clang 5 or higher
+- libc++ installed
 
 ## Structure Overview
 
 ```
 cpp-plugin-template/
 ├── include/                      # Header files for the plugin
-│   └── sample_plugin.h           # Header for the SamplePlugin class
+│   └── endstone_cpp_plugin.h     # Header for the EndstoneCppPlugin class
 ├── src/                          # Source files for the plugin
-│   └── sample_plugin.cpp         # Implementation for the SamplePlugin class
+│   └── endstone_cpp_plugin.cpp   # Implementation for the EndstoneCppPlugin class
 ├── .clang-format                 # Configuration for Clang format rules
 ├── .gitignore                    # Git ignore rules
 ├── CMakeLists.txt                # CMake configuration for building the plugin
@@ -38,20 +45,14 @@ cpp-plugin-template/
 
 3. **Modify & Extend**
 
-   Start by examining and adjusting the `SamplePlugin` class within `include/sample_plugin.h`
-   and `src/sample_plugin.cpp`. If you need to introduce more functionalities or classes, be sure to make those changes.
+   Modify the `EndstoneCppPlugin` class within `include/endstone_cpp_plugin.h` and `src/endstone_cpp_plugin.cpp`.
 
 4. **Building Your Plugin**
-
-   First, make sure you have set the required C++20 standard in your compiler.
-
-   Using CMake, you can then build the plugin:
 
    ```bash
    mkdir build
    cd build
-   cmake ..
-   make
+   cmake .. -DCMAKE_BUILD_TYPE=Releasecd
    ```
 
    This process will compile your code and produce a shared library (or other relevant binary) that Endstone can load.
