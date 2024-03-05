@@ -14,6 +14,9 @@
 
 #include "endstone_cpp_plugin.h"
 
+#include "endstone/command/plugin_command.h"
+#include "fibonacci_command.h"
+
 void EndstoneCppPlugin::onLoad()
 {
     getLogger().info("onLoad is called");
@@ -22,9 +25,16 @@ void EndstoneCppPlugin::onLoad()
 void EndstoneCppPlugin::onEnable()
 {
     getLogger().info("onEnable is called");
+    endstone::PluginCommand *command = registerCommand<FibonacciCommand>();
+    command->setExecutor(std::make_unique<FibonacciCommandExecutor>());
 }
 
 void EndstoneCppPlugin::onDisable()
 {
     getLogger().info("onDisable is called");
+}
+
+const endstone::PluginDescription &EndstoneCppPlugin::getDescription() const
+{
+    return description_;
 }

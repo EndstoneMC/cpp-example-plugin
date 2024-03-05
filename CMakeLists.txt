@@ -36,7 +36,7 @@ FetchContent_MakeAvailable(fmt)
 FetchContent_Declare(
         endstone
         GIT_REPOSITORY https://github.com/EndstoneMC/endstone.git
-        GIT_TAG v1.20.51
+        GIT_TAG main # or set to a specific version tag
 )
 FetchContent_GetProperties(endstone)
 if (NOT endstone_POPULATED)
@@ -47,7 +47,7 @@ endif ()
 # ===============
 # Build
 # ===============
-add_library(${PROJECT_NAME} SHARED src/endstone_cpp_plugin.cpp)
+add_library(${PROJECT_NAME} SHARED src/endstone_cpp_plugin.cpp src/fibonacci_command.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 target_include_directories(${PROJECT_NAME} PRIVATE ${endstone_SOURCE_DIR}/include)
 target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)

@@ -1,4 +1,4 @@
-// Copyright (c) 2023, The Endstone Project. (https://endstone.dev) All Rights Reserved.
+// Copyright (c) 2024, The Endstone Project. (https://endstone.dev) All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,18 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "endstone/plugin/plugin.h"
+#pragma once
 
-class EndstoneCppPlugin : public endstone::Plugin {
+#include "endstone/command/command.h"
+#include "endstone/command/command_executor.h"
+
+class FibonacciCommand : public endstone::Command {
 public:
-    EndstoneCppPlugin() = default;
-    void onLoad() override;
-    void onEnable() override;
-    void onDisable() override;
-    [[nodiscard]] const endstone::PluginDescription &getDescription() const override;
-
-private:
-    endstone::PluginDescription description_{"EndstoneCppPlugin", "0.1.0"};
+    FibonacciCommand();
 };
 
-ENDSTONE_PLUGIN(EndstoneCppPlugin)
+class FibonacciCommandExecutor : public endstone::CommandExecutor {
+public:
+    bool onCommand(const endstone::CommandSender &sender, const endstone::Command &command,
+                   const std::vector<std::string> &args) override;
+};
