@@ -1,6 +1,5 @@
 // Copyright (c) 2024, The Endstone Project. (https://endstone.dev) All Rights Reserved.
 
-#include "endstone/command/plugin_command.h"
 #include "endstone/plugin/plugin.h"
 #include "fibonacci_command.h"
 
