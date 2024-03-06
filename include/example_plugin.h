@@ -16,9 +16,9 @@
 #include "endstone/plugin/plugin.h"
 #include "fibonacci_command.h"
 
-class EndstoneCppPlugin : public endstone::Plugin {
+class ExamplePlugin : public endstone::Plugin {
 public:
-    EndstoneCppPlugin() = default;
+    ExamplePlugin() = default;
     void onLoad() override
     {
         getLogger().info("onLoad is called");
@@ -48,5 +48,10 @@ public:
     }
 
 private:
-    endstone::PluginDescription description_{"EndstoneCppPlugin", "0.1.0"};
+    endstone::PluginDescription description_{
+        "CppExamplePlugin",                                 // name
+        "0.2.0",                                            // version
+        "Official C++ example plugin for Endstone servers", // description
+        {"Endstone Developers <hello@endstone.dev>"}        // authors
+    };
 };

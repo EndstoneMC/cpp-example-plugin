@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "endstone_cpp_plugin.h"
+#include "example_plugin.h"
 
 // The ENDSTONE_PLUGIN macro defines the entry point for the plugin.
-ENDSTONE_PLUGIN(EndstoneCppPlugin)
+ENDSTONE_PLUGIN(ExamplePlugin)
