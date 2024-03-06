@@ -19,9 +19,10 @@ aiming to craft C++ plugins for the Bedrock Dedicated Servers using Endstone.
 ```
 cpp-plugin-template/
 ├── include/                      # Header files for the plugin
-│   └── endstone_cpp_plugin.h     # Header for the EndstoneCppPlugin class
+│   ├── example_plugin.h          # Header for the ExamplePlugin class
+│   └── fibonacci_command.h       # Header for the FibonacciCommand class
 ├── src/                          # Source files for the plugin
-│   └── endstone_cpp_plugin.cpp   # Implementation for the EndstoneCppPlugin class
+│   └── example_plugin.cpp        # Implementation for the ExamplePlugin class
 ├── .clang-format                 # Configuration for Clang format rules
 ├── .gitignore                    # Git ignore rules
 ├── CMakeLists.txt                # CMake configuration for building the plugin
