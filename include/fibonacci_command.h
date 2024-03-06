@@ -25,17 +25,17 @@ public:
         int n = std::stoi(args[0]);
         if (n > 0 && n <= 20) {
             int t1 = 1, t2 = 1, next;
-            std::ostringstream ss;
+            std::ostringstream os;
             for (int i = 1; i <= n; ++i) {
                 if (i > 1) {
-                    ss << ", ";
+                    os << ", ";
                 }
-                ss << t1;
+                os << t1;
                 next = t1 + t2;
                 t1 = t2;
                 t2 = next;
             }
-            sender.sendMessage("Fibonacci Series (n = {}): {}", n, ss.str());
+            sender.sendMessage("Fibonacci Series (n = {}): {}", n, os.str());
             return true;
         }
         else {
