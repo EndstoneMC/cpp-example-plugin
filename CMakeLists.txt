@@ -12,13 +12,17 @@ add_compile_definitions(_ITERATOR_DEBUG_LEVEL=0)
 # ===============
 # Compiler Check
 # ===============
-if (WIN32 AND NOT MSVC)
-    message(FATAL_ERROR "MSVC is required on Windows")
+if (WIN32)
+    if (NOT MSVC)
+        message(FATAL_ERROR "MSVC is required on Windows.")
+    endif ()
 elseif (UNIX)
     if (NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-        message(FATAL_ERROR "Clang is required on Linux")
+        message(FATAL_ERROR "Clang is required on Linux.")
     endif ()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+else ()
+    message(FATAL_ERROR "${CMAKE_SYSTEM_NAME} (${CMAKE_SYSTEM_PROCESSOR}) is not supported")
 endif ()
 
 
@@ -33,6 +37,10 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(fmt)
 
+
+# ===============
+# Endstone API
+# ===============
 FetchContent_Declare(
         endstone
         GIT_REPOSITORY https://github.com/EndstoneMC/endstone.git
@@ -42,15 +50,18 @@ FetchContent_GetProperties(endstone)
 if (NOT endstone_POPULATED)
     FetchContent_Populate(endstone)
 endif ()
+add_library(endstone_headers INTERFACE)
+add_library(endstone::headers ALIAS endstone_headers)
+target_include_directories(endstone_headers INTERFACE ${endstone_SOURCE_DIR}/include)
+target_link_libraries(endstone_headers INTERFACE fmt::fmt)
 
 
 # ===============
 # Build
 # ===============
-add_library(${PROJECT_NAME} SHARED src/endstone_cpp_plugin.cpp src/fibonacci_command.cpp)
+add_library(${PROJECT_NAME} SHARED src/endstone_cpp_plugin.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${endstone_SOURCE_DIR}/include)
-target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)
+target_link_libraries(${PROJECT_NAME} PRIVATE endstone::headers)
 
 
 # ===============
