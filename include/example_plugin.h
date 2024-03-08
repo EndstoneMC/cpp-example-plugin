@@ -14,7 +14,12 @@ public:
     void onEnable() override
     {
         getLogger().info("onEnable is called");
-        registerCommand<FibonacciCommand>()->setExecutor(std::make_unique<FibonacciCommandExecutor>());
+        registerCommand("command",                                                    // name
+                        "A simple command that writes the Fibonacci series up to n.", // description
+                        {"fib"},                                                      // usages
+                        {"/fibonacci <n: int>"}                                       // aliases
+                        )
+            ->setExecutor(std::make_unique<FibonacciCommandExecutor>());
     }
 
     void onDisable() override

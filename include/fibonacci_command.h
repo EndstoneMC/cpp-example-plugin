@@ -7,16 +7,6 @@
 
 #include <string>
 
-class FibonacciCommand : public endstone::Command {
-public:
-    FibonacciCommand() : Command("fibonacci")
-    {
-        setDescription("A simple command that writes the Fibonacci series up to n.");
-        setAliases("fib");
-        setUsages("/fibonacci <n: int>");
-    }
-};
-
 class FibonacciCommandExecutor : public endstone::CommandExecutor {
 public:
     bool onCommand(const endstone::CommandSender &sender, const endstone::Command &command,
