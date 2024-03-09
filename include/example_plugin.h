@@ -16,8 +16,8 @@ public:
         getLogger().info("onEnable is called");
         registerCommand("command",                                                    // name
                         "A simple command that writes the Fibonacci series up to n.", // description
-                        {"fib"},                                                      // usages
-                        {"/fibonacci <n: int>"}                                       // aliases
+                        {"/fibonacci <n: int>"},                                      // usages
+                        {"fib"}                                                       // aliases
                         )
             ->setExecutor(std::make_unique<FibonacciCommandExecutor>());
     }
