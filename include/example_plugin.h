@@ -14,7 +14,7 @@ public:
     void onEnable() override
     {
         getLogger().info("onEnable is called");
-        registerCommand("command",                                                    // name
+        registerCommand("fibonacci",                                                  // name
                         "A simple command that writes the Fibonacci series up to n.", // description
                         {"/fibonacci <n: int>"},                                      // usages
                         {"fib"}                                                       // aliases
