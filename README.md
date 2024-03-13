@@ -1,7 +1,6 @@
-# Endstone C++ Plugin Template
+# Endstone Example C++ Plugin
 
-Welcome to the official C++ plugin template for Endstone. This repository serves as a starting point for developers
-aiming to craft C++ plugins for the Bedrock Dedicated Servers using Endstone.
+Welcome to the official Example C++ plugin for Endstone servers.
 
 ## Prerequisites
 
@@ -17,12 +16,12 @@ aiming to craft C++ plugins for the Bedrock Dedicated Servers using Endstone.
 ## Structure Overview
 
 ```
-cpp-plugin-template/
+cpp-example-plugin/
 ├── include/                      # Header files for the plugin
 │   ├── example_plugin.h          # Header for the ExamplePlugin class
 │   └── fibonacci_command.h       # Header for the FibonacciCommand class
 ├── src/                          # Source files for the plugin
-│   └── example_plugin.cpp        # Implementation for the ExamplePlugin class
+│   └── example_plugin.cpp        # Source for the ExamplePlugin class
 ├── .clang-format                 # Configuration for Clang format rules
 ├── .gitignore                    # Git ignore rules
 ├── CMakeLists.txt                # CMake configuration for building the plugin
@@ -35,20 +34,16 @@ cpp-plugin-template/
 1. **Clone this Repository**
 
    ```bash
-   git clone https://github.com/EndstoneMC/cpp-plugin-template.git
+   git clone https://github.com/EndstoneMC/cpp-example-plugin.git
    ```
 
 2. **Navigate to the Cloned Directory**
 
    ```bash
-   cd cpp-plugin-template
+   cd cpp-example-plugin
    ```
 
-3. **Modify & Extend**
-
-   Modify the `EndstoneCppPlugin` class within `include/endstone_cpp_plugin.h` and `src/endstone_cpp_plugin.cpp`.
-
-4. **Building Your Plugin**
+3. **Building Your Plugin**
 
    ```bash
    mkdir build
@@ -62,7 +57,7 @@ cpp-plugin-template/
    **Note: If you wish to build against a specific version of Endstone, you can modify the `GIT_TAG` in
    the `CMakeLists.txt` file to point to the desired tag or commit.**
 
-5. **Testing Your Plugin**
+4. **Testing Your Plugin**
 
    Once built, install your plugin's output binary to the `plugins` directory of your Endstone server. Start the
    Endstone server and check the logs to ensure your plugin loads and operates as expected.
