@@ -42,9 +42,9 @@ public:
 
 private:
     endstone::PluginDescription description_{
-        "CppExamplePlugin",                                 // name
-        "0.2.0",                                            // version
-        "Official C++ example plugin for Endstone servers", // description
-        {"Endstone Developers <hello@endstone.dev>"}        // authors
+        "CppExamplePlugin",                          // name
+        "0.2.0",                                     // version
+        "C++ example plugin for Endstone servers",   // description
+        {"Endstone Developers <hello@endstone.dev>"} // authors
     };
 };
