@@ -1,6 +1,6 @@
-# Endstone Example C++ Plugin
+# Endstone C++ Example Plugin
 
-Welcome to the official Example C++ plugin for Endstone servers.
+Welcome to the example C++ plugin for Endstone servers.
 
 ## Prerequisites
 
