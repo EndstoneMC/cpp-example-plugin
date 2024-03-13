@@ -43,7 +43,7 @@ cpp-example-plugin/
    cd cpp-example-plugin
    ```
 
-3. **Building Your Plugin**
+3. **Build Your Plugin**
 
    ```bash
    mkdir build
@@ -57,14 +57,16 @@ cpp-example-plugin/
    **Note: If you wish to build against a specific version of Endstone, you can modify the `GIT_TAG` in
    the `CMakeLists.txt` file to point to the desired tag or commit.**
 
-4. **Testing Your Plugin**
+4. **Test Your Plugin**
 
-   Once built, install your plugin's output binary to the `plugins` directory of your Endstone server. Start the
+   Once built, copy the output binary `endstone_cpp_example_plugin.dll` (Windows)
+   or `endstone_cpp_example_plugin.so` (Linux) to the `plugins` directory of your Endstone server. Start the
    Endstone server and check the logs to ensure your plugin loads and operates as expected.
 
 ## Documentation
 
-For a deeper dive into the Endstone API and its functionalities, refer to the main Endstone documentation (WIP).
+For a deeper dive into the Endstone API and its functionalities, refer to the main
+Endstone [documentation](https://endstone.readthedocs.io) (WIP).
 
 ## License
 
