@@ -52,16 +52,16 @@ cpp-example-plugin/
    cmake --build .
    ```
 
-   This process will compile your code and produce a shared library that Endstone can load.
+   This process will compile your code and produce a shared library that Endstone servers can load.
 
    **Note: If you wish to build against a specific version of Endstone, you can modify the `GIT_TAG` in
    the `CMakeLists.txt` file to point to the desired tag or commit.**
 
 4. **Test Your Plugin**
 
-   Once built, copy the output binary `endstone_cpp_example_plugin.dll` (Windows)
-   or `endstone_cpp_example_plugin.so` (Linux) to the `plugins` directory of your Endstone server. Start the
-   Endstone server and check the logs to ensure your plugin loads and operates as expected.
+   Once built, copy the output binary `endstone_example_plugin.dll` (Windows) or `endstone_example_plugin.so` (Linux) to
+   the `plugins` directory of your Endstone server. Start the Endstone server and check the logs to ensure your plugin
+   loads and operates as expected.
 
 ## Documentation
 
