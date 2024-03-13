@@ -6,6 +6,7 @@
 class ExamplePlugin : public endstone::Plugin {
 public:
     ExamplePlugin() = default;
+
     void onLoad() override
     {
         getLogger().info("onLoad is called");
