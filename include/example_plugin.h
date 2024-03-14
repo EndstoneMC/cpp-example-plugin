@@ -16,16 +16,25 @@ public:
     {
         getLogger().info("onEnable is called");
 
-        auto *root = registerPermission("cpp_example.command",
-                                        "Allow users to use all commands provided by this example plugin");
-        registerPermission(root, "cpp_example.command.fibonacci", "Allow users to use the fibonacci command",
-                           endstone::PermissionDefault::Operator);
+        auto *root = registerPermission(                                        // root permission
+            "cpp_example.command",                                              // name
+            "Allow users to use all commands provided by this example plugin"); // description
 
-        registerCommand("fibonacci",                                                  // name
-                        "A simple command that writes the Fibonacci series up to n.", // description
-                        {"/fibonacci <n: int>"},                                      // usages
-                        {"fib"},                                                      // aliases
-                        {"cpp_example.command.fibonacci"})                            // permissions
+        auto *fibonacci = registerPermission(root,                                       // parent
+                                             "cpp_example.command.fibonacci",            // name
+                                             "Allow users to use the fibonacci command", // description
+                                             endstone::PermissionDefault::True);         // default
+
+        registerPermission(fibonacci,                                                 // parent
+                           "cpp_example.command.fibonacci.large_n",                   // name
+                           "Allow users to use the fibonacci command with n >= 1000", // description
+                           endstone::PermissionDefault::Operator);                    // default
+
+        registerCommand("fibonacci",                                                                // name
+                        "A simple command that writes the Fibonacci series up to n.",               // description
+                        {"/fibonacci <n: int>"},                                                    // usages
+                        {"fib"},                                                                    // aliases
+                        {"cpp_example.command.fibonacci", "cpp_example.command.fibonacci.large_n"}) // permissions
             ->setExecutor(std::make_unique<FibonacciCommandExecutor>());
     }
 
@@ -39,7 +48,7 @@ public:
         return description_;
     }
 
-    bool onCommand(const endstone::CommandSender &sender, const endstone::Command &command,
+    bool onCommand(endstone::CommandSender &sender, const endstone::Command &command,
                    const std::vector<std::string> &args) override
     {
         // You can also handle commands here instead of setting an executor in onEnable if you prefer
