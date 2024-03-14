@@ -35,7 +35,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: endstone-cpp-plugin-windows
+          name: example-plugin-windows
           path: ./build/*.dll
 
   build_linux:
@@ -56,18 +56,14 @@ jobs:
           sudo chmod +x llvm.sh
           sudo ./llvm.sh ${LLVM_VERSION}
           sudo apt-get install -y -q libc++-${LLVM_VERSION}-dev libc++abi-${LLVM_VERSION}-dev
-          sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-${LLVM_VERSION} 100
-          sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${LLVM_VERSION} 100
-          sudo update-alternatives --install /usr/bin/llvm-cov llvm-cov /usr/bin/llvm-cov-${LLVM_VERSION} 100
-          sudo update-alternatives --install /usr/bin/ld ld /usr/bin/ld.lld-${LLVM_VERSION} 100
+          sudo update-alternatives --install /usr/bin/cc cc /usr/bin/clang-${LLVM_VERSION} 100
+          sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-${LLVM_VERSION} 100
 
       - name: Set up CMake and Ninja
         uses: lukka/get-cmake@latest
 
       - name: Build with CMake
         run: |
-          export CC=/usr/bin/clang
-          export CXX=/usr/bin/clang++
           mkdir build
           cd build
           cmake -G Ninja -DCMAKE_BUILD_TYPE=Release ..
@@ -76,5 +72,5 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: endstone-cpp-plugin-linux
+          name: example-plugin-linux
           path: ./build/*.so
