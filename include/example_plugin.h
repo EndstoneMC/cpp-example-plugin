@@ -15,11 +15,17 @@ public:
     void onEnable() override
     {
         getLogger().info("onEnable is called");
+
+        auto *root = registerPermission("cpp_example.command",
+                                        "Allow users to use all commands provided by this example plugin");
+        registerPermission(root, "cpp_example.command.fibonacci", "Allow users to use the fibonacci command",
+                           endstone::PermissionDefault::Operator);
+
         registerCommand("fibonacci",                                                  // name
                         "A simple command that writes the Fibonacci series up to n.", // description
                         {"/fibonacci <n: int>"},                                      // usages
-                        {"fib"}                                                       // aliases
-                        )
+                        {"fib"},                                                      // aliases
+                        {"cpp_example.command.fibonacci"})                            // permissions
             ->setExecutor(std::make_unique<FibonacciCommandExecutor>());
     }
 
