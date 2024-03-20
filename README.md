@@ -21,7 +21,7 @@ cpp-example-plugin/
 │   ├── example_plugin.h          # Header for the ExamplePlugin class
 │   └── fibonacci_command.h       # Header for the FibonacciCommand class
 ├── src/                          # Source files for the plugin
-│   └── example_plugin.cpp        # Source for the ExamplePlugin class
+│   └── example_plugin.cpp        # Source and metadata for the plugin
 ├── .clang-format                 # Configuration for Clang format rules
 ├── .gitignore                    # Git ignore rules
 ├── CMakeLists.txt                # CMake configuration for building the plugin

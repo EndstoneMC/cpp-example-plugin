@@ -31,7 +31,7 @@ public:
         // You can also handle commands here instead of setting an executor in onEnable if you prefer
         if (command.getName() == "debug") {
             if (sender.isOp()) {
-                sender.sendMessage(endstone::ColorFormat::DARK_GREEN + "You are seeing this because you are OP!");
+                sender.sendMessage(endstone::ColorFormat::DARK_GREEN + "You are seeing this because you are the OP!");
             }
             else {
                 sender.sendErrorMessage("You should never see this!");
