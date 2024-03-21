@@ -6,6 +6,7 @@
 ENDSTONE_PLUGIN(/*name=*/"CppExamplePlugin", /*version=*/"0.3.0", /*main_class=*/ExamplePlugin)
 {
     plugin.description = "C++ example plugin for Endstone servers";
+    plugin.website = "https://github.com/EndstoneMC/cpp-example-plugin";
     plugin.authors = {"Endstone Developers <hello@endstone.dev>"};
 
     plugin.command("debug")
