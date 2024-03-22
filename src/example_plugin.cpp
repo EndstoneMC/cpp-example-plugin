@@ -3,7 +3,7 @@
 #include "example_plugin.h"
 
 // The ENDSTONE_PLUGIN macro defines the metadata for the plugin.
-ENDSTONE_PLUGIN(/*name=*/"CppExamplePlugin", /*version=*/"0.3.0", /*main_class=*/ExamplePlugin)
+ENDSTONE_PLUGIN(/*name=*/"CppExamplePlugin", /*version=*/"0.4.0", /*main_class=*/ExamplePlugin)
 {
     plugin.description = "C++ example plugin for Endstone servers";
     plugin.website = "https://github.com/EndstoneMC/cpp-example-plugin";
