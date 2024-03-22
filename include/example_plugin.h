@@ -1,9 +1,15 @@
 // Copyright (c) 2024, The Endstone Project. (https://endstone.dev) All Rights Reserved.
 
 #include "endstone/command/plugin_command.h"
+#include "endstone/event/server/server_command_event.h"
+#include "endstone/event/server/server_load_event.h"
 #include "endstone/plugin/plugin.h"
 #include "endstone/util/color_format.h"
+#include "example_listener.h"
 #include "fibonacci_command.h"
+
+#include <memory>
+#include <vector>
 
 class ExamplePlugin : public endstone::Plugin {
 public:
@@ -15,9 +21,16 @@ public:
     void onEnable() override
     {
         getLogger().info("onEnable is called");
+
         if (auto *command = getCommand("fibonacci")) {
             command->setExecutor(std::make_unique<FibonacciCommandExecutor>());
         }
+
+        registerEventHandler<endstone::ServerLoadEvent>(&ExamplePlugin::onServerLoad, *this);
+
+        listener_ = std::make_unique<ExampleListener>(*this);
+        registerEventHandler<endstone::ServerLoadEvent>(&ExampleListener::onServerLoad, *listener_,
+                                                        endstone::EventPriority::HIGH);
     }
 
     void onDisable() override
@@ -42,4 +55,12 @@ public:
         sender.sendErrorMessage("Unknown command: /{}", command.getName());
         return false;
     }
+
+    void onServerLoad(endstone::ServerLoadEvent &event)
+    {
+        getLogger().info("ServerLoadEvent is passed to ExamplePlugin::onServerLoad");
+    }
+
+private:
+    std::unique_ptr<ExampleListener> listener_;
 };
