@@ -26,8 +26,10 @@ public:
             command->setExecutor(std::make_unique<FibonacciCommandExecutor>());
         }
 
+        // You can register an event handler directly in the Plugin class.
         registerEventHandler<endstone::ServerLoadEvent>(&ExamplePlugin::onServerLoad, *this);
 
+        // You can also create a separate class (e.g. ExampleListener) and register the event handler from that class.
         listener_ = std::make_unique<ExampleListener>(*this);
         registerEventHandler<endstone::ServerLoadEvent>(&ExampleListener::onServerLoad, *listener_,
                                                         endstone::EventPriority::HIGH);
