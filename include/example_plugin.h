@@ -27,12 +27,11 @@ public:
         }
 
         // You can register an event handler directly in the Plugin class.
-        registerEventHandler<endstone::ServerLoadEvent>(&ExamplePlugin::onServerLoad, *this);
+        registerEvent(&ExamplePlugin::onServerLoad, *this);
 
         // You can also create a separate class (e.g. ExampleListener) and register the event handler from that class.
         listener_ = std::make_unique<ExampleListener>(*this);
-        registerEventHandler<endstone::ServerLoadEvent>(&ExampleListener::onServerLoad, *listener_,
-                                                        endstone::EventPriority::HIGH);
+        registerEvent(&ExampleListener::onServerLoad, *listener_, endstone::EventPriority::High);
     }
 
     void onDisable() override
@@ -60,7 +59,7 @@ public:
 
     void onServerLoad(endstone::ServerLoadEvent &event)
     {
-        getLogger().info("ServerLoadEvent is passed to ExamplePlugin::onServerLoad");
+        getLogger().info("{} is passed to ExamplePlugin::onServerLoad", event.getEventName());
     }
 
 private:
