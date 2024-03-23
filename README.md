@@ -18,6 +18,7 @@ Welcome to the example C++ plugin for Endstone servers.
 ```
 cpp-example-plugin/
 ├── include/                      # Header files for the plugin
+│   ├── example_listener.h        # Header for the ExampleListener class
 │   ├── example_plugin.h          # Header for the ExamplePlugin class
 │   └── fibonacci_command.h       # Header for the FibonacciCommand class
 ├── src/                          # Source files for the plugin
