@@ -1,10 +1,10 @@
 // Copyright (c) 2024, The Endstone Project. (https://endstone.dev) All Rights Reserved.
 
+#include "endstone/color_format.h"
 #include "endstone/command/plugin_command.h"
 #include "endstone/event/server/server_command_event.h"
 #include "endstone/event/server/server_load_event.h"
 #include "endstone/plugin/plugin.h"
-#include "endstone/util/color_format.h"
 #include "example_listener.h"
 #include "fibonacci_command.h"
 
