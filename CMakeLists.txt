@@ -13,6 +13,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(endstone)
 
+if (MSVC)
+    add_compile_definitions(_ITERATOR_DEBUG_LEVEL=0)
+else ()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ -fPIC")
+    link_libraries(-static-libgcc -static-libstdc++ libc++.a libc++abi.a)
+endif ()
+
 add_library(${PROJECT_NAME} SHARED src/example_plugin.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 target_link_libraries(${PROJECT_NAME} PRIVATE endstone::headers)
