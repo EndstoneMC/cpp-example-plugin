@@ -37,8 +37,8 @@ jobs:
         with:
           name: example-plugin-windows
           path: |
-            ./build/*.dll
-            ./build/*.pdb
+            ./build/*_plugin.dll
+            ./build/*_plugin.pdb
 
   build_linux:
     name: Build on Ubuntu
@@ -75,4 +75,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: example-plugin-linux
-          path: ./build/*.so
+          path: ./build/*_plugin.so
