@@ -29,14 +29,16 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake -G Ninja -DCMAKE_BUILD_TYPE=Release ..
+          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
           cmake --build .
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: example-plugin-windows
-          path: ./build/*.dll
+          path: |
+            ./build/*.dll
+            ./build/*.pdb
 
   build_linux:
     name: Build on Ubuntu
@@ -66,7 +68,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake -G Ninja -DCMAKE_BUILD_TYPE=Release ..
+          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
           cmake --build .
 
       - name: Upload Artifacts
