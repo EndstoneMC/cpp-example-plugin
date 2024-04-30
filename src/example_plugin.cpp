@@ -9,10 +9,10 @@ ENDSTONE_PLUGIN(/*name=*/"CppExamplePlugin", /*version=*/"0.4.0", /*main_class=*
     website = "https://github.com/EndstoneMC/cpp-example-plugin";
     authors = {"Endstone Developers <hello@endstone.dev>"};
 
-    command("debug") //
-        .description("Print debug information.")
-        .usages("/debug")
-        .permissions("cpp_example.command.debug");
+    command("whoami") //
+        .description("Print the information of command executor.")
+        .usages("/whoami")
+        .permissions("cpp_example.command.whoami");
 
     command("fibonacci")
         .description("A simple command that writes the Fibonacci series up to n.")
@@ -22,11 +22,11 @@ ENDSTONE_PLUGIN(/*name=*/"CppExamplePlugin", /*version=*/"0.4.0", /*main_class=*
 
     permission("cpp_example.command")
         .description("Allow users to use all commands provided by this example plugin")
-        .children("cpp_example.command.debug", true)
+        .children("cpp_example.command.whoami", true)
         .children("cpp_example.command.fibonacci", true);
 
-    permission("cpp_example.command.debug")
-        .description("Allow users to use the debug command")
+    permission("cpp_example.command.whoami")
+        .description("Allow users to use the whoami command")
         .default_(endstone::PermissionDefault::Operator);
 
     permission("cpp_example.command.fibonacci")
