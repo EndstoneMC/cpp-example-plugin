@@ -13,12 +13,4 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(endstone)
 
-add_library(${PROJECT_NAME} SHARED src/example_plugin.cpp)
-target_include_directories(${PROJECT_NAME} PUBLIC include)
-target_link_libraries(${PROJECT_NAME} PRIVATE endstone::headers)
-set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "endstone_")
-
-if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    target_compile_options(${PROJECT_NAME} PRIVATE -stdlib=libc++ -fPIC)
-    target_link_libraries(${PROJECT_NAME} PRIVATE -static-libgcc -static-libstdc++ libc++.a libc++abi.a)
-endif ()
+endstone_add_plugin(${PROJECT_NAME} src/example_plugin.cpp)
