@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(endstone_example_plugin CXX)
+project(endstone_example_cpp CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -13,13 +13,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(endstone)
 
-if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    add_compile_definitions(_ITERATOR_DEBUG_LEVEL=0)
-elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ -fPIC")
-    link_libraries(-static-libgcc -static-libstdc++ libc++.a libc++abi.a)
-endif ()
-
 add_library(${PROJECT_NAME} SHARED src/example_plugin.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 target_link_libraries(${PROJECT_NAME} PRIVATE endstone::headers)
+
+if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    target_compile_definitions(${PROJECT_NAME} PRIVATE _ITERATOR_DEBUG_LEVEL=0)
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    target_compile_options(${PROJECT_NAME} PRIVATE -stdlib=libc++ -fPIC)
+    target_link_libraries(${PROJECT_NAME} PRIVATE -static-libgcc -static-libstdc++ libc++.a libc++abi.a)
+endif ()
