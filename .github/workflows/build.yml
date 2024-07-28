@@ -36,8 +36,8 @@ jobs:
         with:
           name: example-plugin-windows
           path: |
-            ./build/*_plugin.dll
-            ./build/*_plugin.pdb
+            ./build/endstone_*.dll
+            ./build/endstone_*.pdb
 
   build_linux:
     name: Build on Ubuntu
@@ -74,4 +74,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: example-plugin-linux
-          path: ./build/*_plugin.so
+          path: ./build/endstone_*.so
