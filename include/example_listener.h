@@ -2,8 +2,8 @@
 
 #pragma once
 
-#include "endstone/event/server/server_load_event.h"
-#include "endstone/plugin/plugin.h"
+#include <endstone/event/server/server_load_event.h>
+#include <endstone/plugin/plugin.h>
 
 class ExampleListener {
 public:
