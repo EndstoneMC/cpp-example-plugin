@@ -9,8 +9,9 @@ include(FetchContent)
 FetchContent_Declare(
         endstone
         GIT_REPOSITORY https://github.com/EndstoneMC/endstone.git
-        GIT_TAG v0.5.5 # TODO: CHANGE ME to the actual version you are using
+        GIT_TAG main # TODO: CHANGE ME to the actual version you are using
 )
 FetchContent_MakeAvailable(endstone)
 
 endstone_add_plugin(${PROJECT_NAME} src/example_plugin.cpp)
+target_include_directories(${PROJECT_NAME} PRIVATE include)
