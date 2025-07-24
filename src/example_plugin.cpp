@@ -32,8 +32,7 @@ ENDSTONE_PLUGIN(/*name=*/"cpp_example", /*version=*/"0.4.0", /*main_class=*/Exam
 
     permission("cpp_example.command.fibonacci")
         .description("Allow users to use the fibonacci command")
-        .default_(endstone::PermissionDefault::True)
-        .children("cpp_example.command.fibonacci.large_n", true);
+        .default_(endstone::PermissionDefault::True);
 
     permission("cpp_example.command.fibonacci.large_n")
         .description("Allow users to use the fibonacci command with n >= 1000")
