@@ -42,7 +42,7 @@ public:
     {
         // You can also handle commands here instead of setting an executor in onEnable if you prefer
         if (command.getName() == "whoami") {
-            if (sender.isOp()) {
+            if (sender.getPermissionLevel() >= endstone::PermissionLevel::Operator) {
                 sender.sendMessage(endstone::ColorFormat::DarkGreen + "You are seeing this because you are the OP!");
             }
             else {
