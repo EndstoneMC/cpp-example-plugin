@@ -10,7 +10,7 @@ Welcome to the example C++ plugin for Endstone servers.
 
 ### Linux
 
-- Clang 5 or higher
+- Clang 15 or higher
 - libc++ installed
 
 ## Structure Overview
@@ -46,7 +46,16 @@ cpp-example-plugin/
 
 3. **Build Your Plugin**
 
-   ```bash
+   **Windows:**
+   ```shell
+   mkdir build
+   cd build
+   cmake ..
+   cmake --build . --config Release
+   ```
+
+   **Linux:**
+   ```shell
    mkdir build
    cd build
    cmake -DCMAKE_BUILD_TYPE=Release ..
