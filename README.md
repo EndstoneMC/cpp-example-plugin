@@ -63,16 +63,6 @@ CC=clang-18 CXX=clang++-18 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ```
 
-## Troubleshooting
-
-**`GLIBC_2.xx not found` when loading the plugin on Linux**
-
-Plugins are linked against glibc at build time and require the same or newer version at
-runtime. A plugin built on Ubuntu 24.04 will not load on a server running Ubuntu 22.04.
-
-To maximize compatibility, build on an older OS. GitHub Actions runners (Ubuntu 22.04)
-are a good default for this reason.
-
 ## Project Structure
 
 ```
@@ -103,6 +93,16 @@ The workflow validates the version, updates the changelog, creates a git tag and
 builds for both Windows and Linux, and attaches the binaries to the release.
 
 Use **dry run** to preview without making changes.
+
+## Troubleshooting
+
+**`GLIBC_2.xx not found` when loading the plugin on Linux**
+
+Plugins are linked against glibc at build time and require the same or newer version at
+runtime. A plugin built on Ubuntu 24.04 will not load on a server running Ubuntu 22.04.
+
+To maximize compatibility, build on an older OS. GitHub Actions runners (Ubuntu 22.04)
+are a good default for this reason.
 
 ## Documentation
 
