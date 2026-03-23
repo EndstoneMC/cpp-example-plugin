@@ -39,10 +39,6 @@ wget https://apt.llvm.org/llvm.sh
 chmod +x llvm.sh
 sudo ./llvm.sh 18
 sudo apt-get install -y libc++-18-dev libc++abi-18-dev
-
-# Set as default compiler
-sudo update-alternatives --install /usr/bin/cc cc /usr/bin/clang-18 100
-sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-18 100
 ```
 
 ### Building
@@ -60,7 +56,7 @@ cmake --build build --config Release
 
 **Linux:**
 ```bash
-cmake -B build -DCMAKE_BUILD_TYPE=Release
+CC=clang-18 CXX=clang++-18 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ```
 
