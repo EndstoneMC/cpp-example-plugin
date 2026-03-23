@@ -28,7 +28,8 @@ public:
         event.setJoinMessage(endstone::ColorFormat::Yellow + player.getName() + " joined the game");
 
         // Log the player's network address (useful for debugging, not shown to players)
-        plugin_.getLogger().info("{} joined from {}", player.getName(), player.getAddress().toString());
+        auto &addr = player.getAddress();
+        plugin_.getLogger().info("{} joined from {}:{}", player.getName(), addr.getHostname(), addr.getPort());
     }
 
     /// Called when a player leaves the server.
