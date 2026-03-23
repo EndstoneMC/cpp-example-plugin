@@ -2,10 +2,9 @@ name: Build
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
   pull_request:
-  workflow_dispatch:
+    branches: [ "main" ]
 
 jobs:
   build_windows:
@@ -14,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up MSVC
         uses: ilammy/msvc-dev-cmd@v1
@@ -26,30 +25,28 @@ jobs:
 
       - name: Build with CMake
         run: |
-          mkdir build
-          cd build
-          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
-          cmake --build .
+          cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
+          cmake --build build
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: example-plugin-windows
+          name: plugin-windows
           path: |
             ./build/endstone_*.dll
             ./build/endstone_*.pdb
 
   build_linux:
-    name: Build on Ubuntu
+    name: Build on Linux
     runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: Set up Clang 15
+      - name: Set up Clang 18
         env:
-          LLVM_VERSION: 15
+          LLVM_VERSION: 18
         run: |
           sudo apt-get update -y -q
           sudo apt-get install -y -q lsb-release wget software-properties-common gnupg
@@ -65,13 +62,11 @@ jobs:
 
       - name: Build with CMake
         run: |
-          mkdir build
-          cd build
-          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
-          cmake --build .
+          cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
+          cmake --build build
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: example-plugin-linux
+          name: plugin-linux
           path: ./build/endstone_*.so

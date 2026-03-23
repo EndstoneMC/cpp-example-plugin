@@ -1,83 +1,90 @@
 # Endstone C++ Example Plugin
 
-Welcome to the example C++ plugin for Endstone servers.
+[![Build](https://github.com/EndstoneMC/cpp-example-plugin/actions/workflows/build.yml/badge.svg)](https://github.com/EndstoneMC/cpp-example-plugin/actions/workflows/build.yml)
 
-## Prerequisites
+A starter template for building [Endstone](https://github.com/EndstoneMC/endstone) plugins in C++.
+Endstone is a plugin framework for Minecraft Bedrock Dedicated Server, similar to
+Bukkit/Spigot/Paper for Java Edition. This template demonstrates commands, events,
+and permissions.
 
-### Windows
+## Use This Template
 
-- Visual Studio 2017 or newer
+1. Click **Use this template** on GitHub (or fork/clone it)
+2. Rename the following to match your plugin:
 
-### Linux
+| What | Where | Example |
+|------|-------|---------|
+| Project name | `CMakeLists.txt` `project(...)` | `project(my_plugin CXX)` |
+| Plugin metadata | `src/plugin.cpp` `ENDSTONE_PLUGIN(...)` | `"my_plugin", "0.1.0", MyPlugin` |
+| Plugin class | `include/plugin.h` class name | `MyPlugin` |
+| Prefix | `src/plugin.cpp` `prefix = ...` | `"MyPlugin"` |
+| Permission prefix | `src/plugin.cpp` permission names | `my_plugin.command.*` |
 
-- Clang 15 or higher
-- libc++ installed
+3. Update the `GIT_TAG` in `CMakeLists.txt` to the Endstone version you target
+4. Delete the example command/listener code and start building
 
-## Structure Overview
+## Development
+
+### Prerequisites
+
+**Windows:** Visual Studio 2017 or newer
+
+**Linux:** Clang 15+ with libc++ installed
+
+### Building
+
+```bash
+git clone https://github.com/EndstoneMC/cpp-example-plugin.git
+cd cpp-example-plugin
+```
+
+**Windows:**
+```bash
+cmake -B build
+cmake --build build --config Release
+```
+
+**Linux:**
+```bash
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+```
+
+## Project Structure
 
 ```
-cpp-example-plugin/
-├── include/                      # Header files for the plugin
-│   ├── example_listener.h        # Header for the ExampleListener class
-│   ├── example_plugin.h          # Header for the ExamplePlugin class
-│   └── fibonacci_command.h       # Header for the FibonacciCommand class
-├── src/                          # Source files for the plugin
-│   └── example_plugin.cpp        # Source and metadata for the plugin
-├── .clang-format                 # Configuration for Clang format rules
-├── .gitignore                    # Git ignore rules
-├── CMakeLists.txt                # CMake configuration for building the plugin
-├── LICENSE                       # License details
-└── README.md                     # This file
+include/
+  plugin.h       Plugin lifecycle, commands
+  listener.h     Event listener (player join/quit)
+src/
+  plugin.cpp     Plugin metadata, command and permission declarations
 ```
 
-## Getting Started
+## Install on a Server
 
-1. **Clone this Repository**
+After building, copy the output binary to your server's `plugins/` folder:
+- **Windows:** `build/Release/endstone_cpp_example.dll`
+- **Linux:** `build/endstone_cpp_example.so`
 
-   ```bash
-   git clone https://github.com/EndstoneMC/cpp-example-plugin.git
-   ```
+Restart the server to load the plugin.
 
-2. **Navigate to the Cloned Directory**
+## Releasing
 
-   ```bash
-   cd cpp-example-plugin
-   ```
+This template includes a GitHub Actions release workflow. To make a release:
 
-3. **Build Your Plugin**
+1. Add your changes under `## [Unreleased]` in `CHANGELOG.md`
+2. Go to **Actions > Release > Run workflow**
+3. Enter the version (e.g. `0.1.0`) and run
 
-   **Windows:**
-   ```shell
-   mkdir build
-   cd build
-   cmake ..
-   cmake --build . --config Release
-   ```
+The workflow validates the version, updates the changelog, creates a git tag and GitHub release,
+builds for both Windows and Linux, and attaches the binaries to the release.
 
-   **Linux:**
-   ```shell
-   mkdir build
-   cd build
-   cmake -DCMAKE_BUILD_TYPE=Release ..
-   cmake --build .
-   ```
-
-   This process will compile your code and produce a shared library that Endstone servers can load.
-
-   **Note: If you wish to build against a specific version of Endstone, you can modify the `GIT_TAG` in
-   the `CMakeLists.txt` file to point to the desired tag or commit.**
-
-4. **Test Your Plugin**
-
-   Once built, copy the output binary `endstone_example_plugin.dll` (Windows) or `endstone_example_plugin.so` (Linux) to
-   the `plugins` directory of your Endstone server. Start the Endstone server and check the logs to ensure your plugin
-   loads and operates as expected.
+Use **dry run** to preview without making changes.
 
 ## Documentation
 
-For a deeper dive into the Endstone API and its functionalities, refer to the main
-Endstone [documentation](https://endstone.readthedocs.io) (WIP).
+For more on the Endstone API, see the [documentation](https://endstone.dev/latest/).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+[MIT License](LICENSE)

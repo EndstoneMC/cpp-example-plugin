@@ -1,0 +1,216 @@
+# Endstone C++ Plugin Development Guide
+
+This file helps AI coding agents understand how to build Endstone plugins in C++.
+
+Endstone is a plugin framework for Minecraft Bedrock Dedicated Server (BDS). C++ plugins
+are compiled to shared libraries (.dll on Windows, .so on Linux) placed in the server's
+`plugins/` folder.
+
+Docs: https://endstone.dev/latest/
+Example plugin: see `include/` and `src/` in this repo.
+
+## Project Setup
+
+Use CMake with FetchContent to pull in the Endstone SDK:
+
+```cmake
+cmake_minimum_required(VERSION 3.15)
+project(my_plugin CXX)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+include(FetchContent)
+FetchContent_Declare(
+    endstone
+    GIT_REPOSITORY https://github.com/EndstoneMC/endstone.git
+    GIT_TAG v0.11
+)
+FetchContent_MakeAvailable(endstone)
+
+endstone_add_plugin(${PROJECT_NAME} src/plugin.cpp)
+target_include_directories(${PROJECT_NAME} PRIVATE include)
+```
+
+## Plugin Class
+
+Every plugin extends `endstone::Plugin` and is registered with the `ENDSTONE_PLUGIN` macro:
+
+```cpp
+#include <endstone/endstone.hpp>
+
+class MyPlugin : public endstone::Plugin {
+public:
+    void onEnable() override {
+        getLogger().info("Plugin enabled!");
+    }
+
+    void onDisable() override {
+        getLogger().info("Plugin disabled!");
+    }
+};
+```
+
+Lifecycle methods (all optional, virtual overrides):
+- `onLoad()` -- called when the plugin is loaded (before enable, rarely needed)
+- `onEnable()` -- called when the plugin is enabled (register events, setup here)
+- `onDisable()` -- called when the plugin is disabled (cleanup here)
+
+Key members available via `this`:
+- `getLogger()` -- plugin logger
+- `getServer()` -- the Server instance
+- `getCommand(name)` -- get a registered command
+
+## Plugin Metadata (ENDSTONE_PLUGIN macro)
+
+Declared in a .cpp file:
+
+```cpp
+#include "plugin.h"
+
+ENDSTONE_PLUGIN("my_plugin", "0.1.0", MyPlugin)
+{
+    prefix = "MyPlugin";
+    description = "My Endstone plugin";
+    website = "https://github.com/me/my-plugin";
+    authors = {"Author Name"};
+
+    command("hello")
+        .description("Send a greeting")
+        .usages("/hello")
+        .permissions("my_plugin.command.hello");
+
+    permission("my_plugin.command.hello")
+        .description("Allow users to use the /hello command.")
+        .default_(endstone::PermissionDefault::True);
+}
+```
+
+## Commands
+
+Commands are declared in the ENDSTONE_PLUGIN block and handled via `onCommand`:
+
+```cpp
+bool onCommand(endstone::CommandSender &sender, const endstone::Command &command,
+               const std::vector<std::string> &args) override
+{
+    if (command.getName() == "hello") {
+        // Use dynamic_cast to check the sender type
+        if (auto *player = dynamic_cast<endstone::Player *>(&sender)) {
+            player->sendMessage("Hello, {}!", player->getName());
+        }
+        else if (dynamic_cast<endstone::ConsoleCommandSender *>(&sender)) {
+            getLogger().info("Hello from the console!");
+        }
+        return true;
+    }
+    return false;
+}
+```
+
+### Command Parameter Types
+
+Parameters in `usages` use the syntax `<name: type>` (mandatory) or `[name: type]` (optional).
+
+Built-in types: `int`, `float`, `bool`, `str`, `message`, `json`, `target`, `block_pos`, `pos`,
+`block`, `block_states`, `entity_type`.
+
+### Permission Defaults
+
+- `endstone::PermissionDefault::True` -- everyone
+- `endstone::PermissionDefault::False` -- no one (must be granted)
+- `endstone::PermissionDefault::Operator` -- operators only (default)
+- `endstone::PermissionDefault::NotOperator` -- non-operators only
+- `endstone::PermissionDefault::Console` -- console only
+
+## Events
+
+Register event handlers in `onEnable`. Handlers are member functions on any class:
+
+```cpp
+#include <endstone/endstone.hpp>
+
+class MyListener {
+public:
+    explicit MyListener(endstone::Plugin &plugin) : plugin_(plugin) {}
+
+    void onPlayerJoin(endstone::PlayerJoinEvent &event)
+    {
+        auto &player = event.getPlayer();
+        event.setJoinMessage(endstone::ColorFormat::Yellow + player.getName() + " joined");
+        plugin_.getLogger().info("{} joined from {}", player.getName(), player.getAddress().toString());
+    }
+
+    void onPlayerQuit(endstone::PlayerQuitEvent &event)
+    {
+        event.setQuitMessage(endstone::ColorFormat::Yellow + event.getPlayer().getName() + " left");
+    }
+
+private:
+    endstone::Plugin &plugin_;
+};
+```
+
+Register in `onEnable`:
+
+```cpp
+void onEnable() override
+{
+    listener_ = std::make_unique<MyListener>(*this);
+    registerEvent(&MyListener::onPlayerJoin, *listener_, endstone::EventPriority::High);
+    registerEvent(&MyListener::onPlayerQuit, *listener_);
+}
+```
+
+### Event Priorities
+
+Priorities (lowest runs first): `Lowest`, `Low`, `Normal` (default), `High`, `Highest`, `Monitor`.
+
+### Common Events
+
+Player: `PlayerJoinEvent`, `PlayerQuitEvent`, `PlayerChatEvent`, `PlayerCommandEvent`,
+`PlayerInteractEvent`, `PlayerDeathEvent`, `PlayerMoveEvent`, `PlayerTeleportEvent`.
+
+Block: `BlockBreakEvent`, `BlockPlaceEvent`, `BlockExplodeEvent`.
+
+Actor: `ActorSpawnEvent`, `ActorDeathEvent`, `ActorDamageEvent`.
+
+Server: `ServerLoadEvent`, `ServerListPingEvent`, `ServerCommandEvent`.
+
+Packet: `PacketReceiveEvent`, `PacketSendEvent` (for low-level protocol access).
+
+## Color Formatting
+
+```cpp
+#include <endstone/endstone.hpp>
+
+auto msg = endstone::ColorFormat::Green + "Success! " + endstone::ColorFormat::Reset + "Normal text.";
+```
+
+Common codes: `Black`, `DarkBlue`, `DarkGreen`, `DarkAqua`, `DarkRed`, `DarkPurple`,
+`Gold`, `Gray`, `DarkGray`, `Blue`, `Green`, `Aqua`, `Red`, `LightPurple`, `Yellow`,
+`White`, `Bold`, `Italic`, `Obfuscated`, `Reset`.
+
+Always end colored text with `ColorFormat::Reset`.
+
+## Player Methods
+
+```cpp
+player->sendMessage("text");            // Chat message
+player->sendPopup("text");              // Popup on screen
+player->sendTip("text");                // Tip at top
+player->sendTitle("title", "sub");      // Title screen
+player->sendToast("title", "body");     // Toast notification
+player->kick("reason");                 // Kick from server
+player->performCommand("say hi");       // Execute command as player
+player->teleport(location);             // Teleport
+```
+
+## Building
+
+```bash
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+```
+
+Copy the `.dll` (Windows) or `.so` (Linux) from `build/` to your server's `plugins/` folder.
