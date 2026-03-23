@@ -34,6 +34,9 @@ separately from [cmake.org](https://cmake.org/download/).
 **Linux:** Clang 15+ with libc++. Install via [apt.llvm.org](https://apt.llvm.org/):
 
 ```bash
+# Install CMake and Ninja
+sudo apt-get install -y cmake ninja-build
+
 # Install LLVM/Clang (replace 18 with desired version)
 wget https://apt.llvm.org/llvm.sh
 chmod +x llvm.sh
