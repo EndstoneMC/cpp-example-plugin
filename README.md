@@ -27,9 +27,23 @@ and permissions.
 
 ### Prerequisites
 
-**Windows:** Visual Studio 2017 or newer
+**Windows:** [Visual Studio](https://visualstudio.microsoft.com/) 2019 or newer with the
+"Desktop development with C++" workload. CMake is included with Visual Studio, or install it
+separately from [cmake.org](https://cmake.org/download/).
 
-**Linux:** Clang 15+ with libc++ installed
+**Linux:** Clang 15+ with libc++. Install via [apt.llvm.org](https://apt.llvm.org/):
+
+```bash
+# Install LLVM/Clang (replace 18 with desired version)
+wget https://apt.llvm.org/llvm.sh
+chmod +x llvm.sh
+sudo ./llvm.sh 18
+sudo apt-get install -y libc++-18-dev libc++abi-18-dev
+
+# Set as default compiler
+sudo update-alternatives --install /usr/bin/cc cc /usr/bin/clang-18 100
+sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-18 100
+```
 
 ### Building
 
