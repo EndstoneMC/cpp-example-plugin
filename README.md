@@ -63,12 +63,15 @@ CC=clang-18 CXX=clang++-18 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ```
 
-### A note on glibc (Linux)
+## Troubleshooting
 
-Plugins built on Linux are linked against glibc and can only run on servers with the same or
-newer glibc version. A plugin built on Ubuntu 24.04 will not load on a server running
-Ubuntu 22.04. To maximize compatibility, build on an older OS. GitHub Actions runners
-(Ubuntu 22.04) are a good default for this reason.
+**`GLIBC_2.xx not found` when loading the plugin on Linux**
+
+Plugins are linked against glibc at build time and require the same or newer version at
+runtime. A plugin built on Ubuntu 24.04 will not load on a server running Ubuntu 22.04.
+
+To maximize compatibility, build on an older OS. GitHub Actions runners (Ubuntu 22.04)
+are a good default for this reason.
 
 ## Project Structure
 
