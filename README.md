@@ -20,7 +20,7 @@ and permissions.
 | Prefix | `src/plugin.cpp` `prefix = ...` | `"MyPlugin"` |
 | Permission prefix | `src/plugin.cpp` permission names | `my_plugin.command.*` |
 
-3. Update the `GIT_TAG` in `CMakeLists.txt` to the Endstone version you target
+3. Update `ENDSTONE_API_VERSION` in `CMakeLists.txt` to the Endstone version you target
 4. Delete the example command/listener code and start building
 
 ## Development
