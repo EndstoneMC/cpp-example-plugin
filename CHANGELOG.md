@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-03-23
+
 ### Changed
 - Overhauled plugin examples to focus on essential patterns: lifecycle, commands, events
 - Two commands (`/hello`, `/broadcast`) demonstrating dynamic_cast sender checks and server broadcast
