@@ -1,9 +1,10 @@
 #include "plugin.h"
+#include "version.h"
 
 // The ENDSTONE_PLUGIN macro defines the metadata for the plugin.
 // This is where you set the plugin name, version, and main class,
 // and declare commands and permissions.
-ENDSTONE_PLUGIN(/*name=*/"cpp_example", /*version=*/"0.1.0", /*main_class=*/ExamplePlugin)
+ENDSTONE_PLUGIN(/*name=*/"cpp_example", /*version=*/CPP_EXAMPLE_VERSION, /*main_class=*/ExamplePlugin)
 {
     prefix = "ExamplePlugin";
     description = "C++ example plugin for Endstone servers";

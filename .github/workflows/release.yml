@@ -59,8 +59,18 @@ jobs:
           echo "Tag: v$VERSION"
           echo "Date: $DATE"
           echo ""
+          echo "=== CMakeLists.txt version (current) ==="
+          grep 'project(' CMakeLists.txt
+          echo "=== CMakeLists.txt version (after update) ==="
+          echo "project(cpp_example VERSION $VERSION LANGUAGES CXX)"
+          echo ""
           echo "=== Release Body ==="
           cat /tmp/release_body.md
+
+      - name: Update version in CMakeLists.txt
+        if: ${{ !inputs.dry_run }}
+        run: |
+          sed -i "s/\(project(cpp_example VERSION \)[0-9]\+\.[0-9]\+\.[0-9]\+/\1$VERSION/" CMakeLists.txt
 
       - name: Update CHANGELOG.md
         if: ${{ !inputs.dry_run }}
@@ -73,7 +83,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add CHANGELOG.md
+          git add CMakeLists.txt CHANGELOG.md
           git commit -m "Release $VERSION"
           git tag "v$VERSION"
 

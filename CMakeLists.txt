@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(cpp_example CXX)
+project(cpp_example VERSION 0.5.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -16,5 +16,8 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(endstone)
 
+string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
+configure_file(include/version.h.in include/version.h)
+
 endstone_add_plugin(${PROJECT_NAME} src/plugin.cpp)
-target_include_directories(${PROJECT_NAME} PRIVATE include)
+target_include_directories(${PROJECT_NAME} PRIVATE include ${CMAKE_CURRENT_BINARY_DIR}/include)

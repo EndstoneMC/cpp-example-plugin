@@ -14,8 +14,9 @@ and permissions.
 
 | What | Where | Example |
 |------|-------|---------|
-| Project name | `CMakeLists.txt` `project(...)` | `project(my_plugin CXX)` |
-| Plugin metadata | `src/plugin.cpp` `ENDSTONE_PLUGIN(...)` | `"my_plugin", "0.1.0", MyPlugin` |
+| Project name | `CMakeLists.txt` `project(...)` | `project(my_plugin VERSION 0.1.0 LANGUAGES CXX)` |
+| Plugin version | `CMakeLists.txt` `project(... VERSION ...)` | `0.1.0` |
+| Plugin metadata | `src/plugin.cpp` `ENDSTONE_PLUGIN(...)` | `"my_plugin", MY_PLUGIN_VERSION, MyPlugin` |
 | Plugin class | `include/plugin.h` class name | `MyPlugin` |
 | Prefix | `src/plugin.cpp` `prefix = ...` | `"MyPlugin"` |
 | Permission prefix | `src/plugin.cpp` permission names | `my_plugin.command.*` |
