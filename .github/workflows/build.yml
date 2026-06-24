@@ -57,8 +57,8 @@ jobs:
           sudo chmod +x llvm.sh
           sudo ./llvm.sh ${LLVM_VERSION}
           sudo apt-get install -y -q libc++-${LLVM_VERSION}-dev libc++abi-${LLVM_VERSION}-dev
-          sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-${LLVM_VERSION} 100
-          sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${LLVM_VERSION} 100
+          sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-${LLVM_VERSION} 200
+          sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${LLVM_VERSION} 200
 
       - name: Set up CMake and Ninja
         uses: lukka/get-cmake@latest
